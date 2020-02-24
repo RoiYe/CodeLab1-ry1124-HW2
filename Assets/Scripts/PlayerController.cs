@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb;
     public Vector3 scaleChange = new Vector3(0.1f, 0.1f, 0);
     public int score;
+    public Transform field;
 
     public static PlayerController instance;
 
@@ -39,13 +40,15 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (transform.position.x - transform.localScale.x/2 < -5 || transform.position.x + transform.localScale.x / 2 > 5 || transform.position.y - transform.localScale.y / 2 < -5 || transform.position.y + transform.localScale.y / 2 > 5)
+        float dist = Vector2.Distance(field.position, transform.position);
+        if (dist + transform.localScale.x/2 > 5)
+        //if (transform.position.x - transform.localScale.x/2 < -5 || transform.position.x + transform.localScale.x / 2 > 5 || transform.position.y - transform.localScale.y / 2 < -5 || transform.position.y + transform.localScale.y / 2 > 5)
         {
             Debug.Log("out of boarder");
-            //lostText.text = "You Lost!";
-            //lostText.gameObject.SetActive(true);
+			lostText.text = "You Lost!";
+			lostText.gameObject.SetActive(true);
 
-        }
+		}
         else
         {
             float moveHorizontal = Input.GetAxis("Horizontal");

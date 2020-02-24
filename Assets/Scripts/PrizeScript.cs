@@ -12,7 +12,7 @@ public class PrizeScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        targetScore = PlayerController.instance.score * 2 + 5;
+        targetScore = PlayerController.instance.score + 5;
     }
 
     // Update is called once per frame
@@ -23,10 +23,14 @@ public class PrizeScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //float PrizeDist = Vector2.Distance(transform.position, (0,0,-1));
         PlayerController.instance.score++;
-        transform.position = new Vector3(Random.Range(-4, 4), Random.Range(-4, 4), -1);
-
-        if(PlayerController.instance.score > targetScore)
+        //if (PrizeDist <= 4)
+        //{
+        transform.position = Random.insideUnitCircle * 4;
+        //transform.position = new Vector3(Random.Range(-4, 4), Random.Range(-4, 4), -1);
+        //}
+        if (PlayerController.instance.score > targetScore)
         {
             currentLevel++;
             SceneManager.LoadScene(currentLevel);
